@@ -1,171 +1,1180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sylvia Onorah - CV</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Onorah Sylvia Chiemezue — Data Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 
-<style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        background-color: #C9C8BF;
-        color: #141413;
-    }
+  <style>
+/* ══════════════════════════════════════════════════════
+   RESET
+══════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-    .container {
-        max-width: 900px;
-        margin: 40px auto;
-        background: #FFFFFF;
-        padding: 40px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        border-radius: 10px;
-    }
+/* ══════════════════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════════════════ */
+:root{
+  --bg:        #141413;
+  --bg2:       #191918;
+  --bg3:       #1e1e1c;
+  --c1:        #E6E4DC;   /* warm white */
+  --c2:        #8C897F;   /* warm mid */
+  --c3:        #4A4845;   /* warm muted */
+  --acc:       #AFACA1;   /* warm gray accent */
+  --acc2:      #BDBBB2;
+  --acc3:      #C9C8BF;
+  --bdr:       rgba(175,172,161,.09);
+  --bdr2:      rgba(175,172,161,.18);
+  --serif:     'Cormorant Garamond',Georgia,serif;
+  --sans:      'DM Sans',sans-serif;
+  --mono:      'DM Mono',monospace;
+  --ease:      cubic-bezier(.22,1,.36,1);
+  --sw:        260px;
+}
 
-    h1 {
-        margin-bottom: 5px;
-        font-size: 28px;
-    }
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--c1);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
 
-    h2 {
-        font-size: 16px;
-        margin-top: 30px;
-        color: #141413;
-        border-bottom: 2px solid #BDBBB2;
-        padding-bottom: 5px;
-    }
+/* ── grain overlay ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:9999;
+  opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-    p {
-        line-height: 1.6;
-        font-size: 14px;
-    }
+/* ══════════════════════════════════════════════════════
+   AMBIENT GRADIENT CANVAS (the "moody" palette feel)
+══════════════════════════════════════════════════════ */
+.ambient{
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 0%,   rgba(175,172,161,.055) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 0%   100%,  rgba(175,172,161,.04)  0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50%  50%,   rgba(175,172,161,.02)  0%, transparent 70%);
+}
 
-    .header {
-        margin-bottom: 20px;
-    }
+/* ══════════════════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════════════════ */
+[data-reveal]{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .75s var(--ease), transform .75s var(--ease);
+}
+[data-reveal].show{opacity:1;transform:none}
+[data-reveal][data-delay="1"]{transition-delay:.1s}
+[data-reveal][data-delay="2"]{transition-delay:.2s}
+[data-reveal][data-delay="3"]{transition-delay:.3s}
+[data-reveal][data-delay="4"]{transition-delay:.4s}
+[data-reveal][data-delay="5"]{transition-delay:.5s}
 
-    .title {
-        color: #AFA CA1;
-        font-weight: 600;
-        font-size: 14px;
-    }
+/* ══════════════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════════════ */
+.sb{
+  position:fixed;
+  top:0;left:0;
+  width:var(--sw);
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  padding:44px 36px;
+  border-right:1px solid var(--bdr);
+  background:linear-gradient(160deg, var(--bg2) 0%, var(--bg) 100%);
+  z-index:200;
+}
+/* subtle warm glow bottom-left of sidebar */
+.sb::after{
+  content:'';
+  position:absolute;
+  bottom:-30px;left:-30px;
+  width:180px;height:180px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(175,172,161,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
 
-    .contact {
-        font-size: 13px;
-        color: #555;
-        margin-top: 5px;
-    }
+.sb-logo{
+  font-family:var(--serif);
+  font-size:1.2rem;
+  font-weight:400;
+  color:var(--c1);
+  line-height:1.2;
+  margin-bottom:4px;
+}
+.sb-role{
+  font-size:.68rem;
+  color:var(--c2);
+  font-weight:300;
+  letter-spacing:.05em;
+  margin-bottom:28px;
+}
+.sb-divider{width:20px;height:1px;background:var(--bdr2);margin-bottom:28px;}
 
-    .summary {
-        background: #F7F6F3;
-        padding: 15px;
-        border-radius: 6px;
-        margin-top: 20px;
-    }
+.sb-nav{list-style:none;flex:1;display:flex;flex-direction:column;gap:1px}
+.sb-nav a{
+  display:block;
+  font-size:.8rem;
+  color:var(--c2);
+  text-decoration:none;
+  font-weight:300;
+  padding:7px 0;
+  border-left:1px solid transparent;
+  padding-left:12px;
+  margin-left:-12px;
+  transition:color .2s,border-color .2s,padding-left .25s var(--ease);
+}
+.sb-nav a:hover,.sb-nav a.act{
+  color:var(--c1);
+  border-left-color:var(--acc);
+  padding-left:18px;
+}
 
-    ul {
-        padding-left: 18px;
-    }
+.sb-foot{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  padding-top:24px;
+  border-top:1px solid var(--bdr);
+}
+.sb-foot a{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--c3);
+  text-decoration:none;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  transition:color .2s;
+}
+.sb-foot a:hover{color:var(--acc2)}
 
-    li {
-        margin-bottom: 8px;
-        font-size: 14px;
-    }
+/* ══════════════════════════════════════════════════════
+   MOBILE NAV
+══════════════════════════════════════════════════════ */
+.mob{
+  display:none;
+  position:fixed;top:0;left:0;right:0;
+  z-index:300;
+  padding:16px 22px;
+  background:rgba(20,20,19,.93);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--bdr);
+  align-items:center;
+  justify-content:space-between;
+}
+.mob-n{font-family:var(--serif);font-size:.95rem;color:var(--c1)}
+.mob-btn{
+  background:none;border:none;cursor:pointer;
+  display:flex;flex-direction:column;gap:5px;padding:4px;
+}
+.mob-btn span{display:block;width:21px;height:1px;background:var(--acc);transition:.28s}
+.mob-btn.o span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.mob-btn.o span:nth-child(2){opacity:0}
+.mob-btn.o span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+.mob-panel{
+  display:none;position:fixed;
+  top:53px;left:0;right:0;
+  background:var(--bg2);
+  border-bottom:1px solid var(--bdr);
+  padding:18px 22px;
+  z-index:299;flex-direction:column;gap:0;
+}
+.mob-panel.o{display:flex}
+.mob-panel a{
+  font-size:.84rem;color:var(--c2);text-decoration:none;
+  padding:11px 0;border-bottom:1px solid var(--bdr);transition:color .2s
+}
+.mob-panel a:last-child{border-bottom:none}
+.mob-panel a:hover{color:var(--c1)}
 
-    .job {
-        margin-bottom: 20px;
-    }
+/* ══════════════════════════════════════════════════════
+   MAIN
+══════════════════════════════════════════════════════ */
+.main{margin-left:var(--sw);position:relative;z-index:1}
 
-    .job-title {
-        font-weight: bold;
-    }
+section{
+  padding:96px 68px;
+  border-bottom:1px solid var(--bdr);
+  position:relative;
+}
 
-    .date {
-        font-size: 12px;
-        color: #777;
-    }
+/* ── shared section labels ── */
+.ey{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:.6rem;
+  color:var(--c3);letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.ey::before{content:'';width:16px;height:1px;background:var(--c3)}
 
-</style>
+.sh{
+  font-family:var(--serif);
+  font-size:clamp(1.9rem,3vw,2.7rem);
+  font-weight:300;
+  color:var(--c1);
+  line-height:1.15;
+  letter-spacing:-.01em;
+  margin-bottom:52px;
+}
+.sh em{font-style:italic;color:var(--acc)}
+
+/* ══════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 90% 70% at 110% 10%, rgba(175,172,161,.06) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at -10% 90%, rgba(175,172,161,.04) 0%, transparent 55%);
+}
+
+.hero-inner{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:56px;
+  align-items:center;
+}
+
+/* available badge */
+.avail{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid rgba(157,192,139,.25);
+  padding:5px 13px;
+  border-radius:999px;
+  font-size:.65rem;
+  color:#9DC08B;
+  font-family:var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:28px;
+  width:fit-content;
+}
+.avail-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:#9DC08B;
+  box-shadow:0 0 6px rgba(157,192,139,.6);
+  animation:pulse 2.2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.h1{
+  font-family:var(--serif);
+  font-size:clamp(2.8rem,5.2vw,5rem);
+  font-weight:300;
+  line-height:1.04;
+  letter-spacing:-.025em;
+  color:var(--c1);
+  margin-bottom:8px;
+}
+.h1 .it{font-style:italic;color:var(--acc);display:block}
+
+.h-sub{
+  font-size:.72rem;
+  color:var(--c3);
+  font-weight:300;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:26px;
+}
+
+.h-stmt{
+  font-size:.98rem;
+  color:var(--c2);
+  max-width:430px;
+  line-height:1.85;
+  margin-bottom:40px;
+  font-weight:300;
+  padding-left:18px;
+  border-left:1px solid var(--bdr2);
+}
+.h-stmt strong{color:var(--c1);font-weight:400}
+
+.h-btns{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.btn{
+  display:inline-block;
+  padding:12px 28px;
+  border:1px solid var(--acc);
+  color:var(--c1);
+  font-family:var(--sans);
+  font-size:.75rem;
+  font-weight:400;
+  letter-spacing:.05em;
+  text-decoration:none;
+  background:transparent;
+  cursor:pointer;
+  transition:background .3s var(--ease),color .3s;
+}
+.btn:hover{background:var(--acc);color:var(--bg)}
+.btn-ghost{
+  font-size:.78rem;color:var(--c3);text-decoration:none;
+  display:flex;align-items:center;gap:6px;transition:color .2s;
+}
+.btn-ghost:hover{color:var(--c1)}
+.btn-ghost .arr{transition:transform .25s}
+.btn-ghost:hover .arr{transform:translateX(4px)}
+
+.h-stats{
+  display:flex;gap:40px;
+  margin-top:52px;padding-top:30px;
+  border-top:1px solid var(--bdr);
+}
+.hs{display:flex;flex-direction:column;gap:3px}
+.hs-n{
+  font-family:var(--serif);
+  font-size:2.1rem;font-weight:300;
+  color:var(--c1);line-height:1;
+}
+.hs-n sup{font-size:1rem;color:var(--acc)}
+.hs-l{font-size:.64rem;color:var(--c3);font-weight:300;letter-spacing:.06em}
+
+/* hero photo */
+.h-photo{position:relative;flex-shrink:0}
+.h-photo::before{
+  content:'';position:absolute;
+  top:-9px;right:-9px;
+  width:40px;height:40px;
+  border-top:1px solid var(--bdr2);
+  border-right:1px solid var(--bdr2);
+  pointer-events:none;
+}
+.h-photo::after{
+  content:'';position:absolute;
+  bottom:-9px;left:-9px;
+  width:40px;height:40px;
+  border-bottom:1px solid var(--bdr2);
+  border-left:1px solid var(--bdr2);
+  pointer-events:none;
+}
+.h-frame{
+  width:210px;height:268px;
+  overflow:hidden;position:relative;
+}
+.h-frame::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(170deg,transparent 55%,rgba(20,20,19,.5) 100%);
+  z-index:1;
+}
+.h-frame img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(12%) sepia(8%);display:block;
+}
+.ph-placeholder{
+  width:100%;height:100%;
+  background:var(--bg3);
+  border:1px solid var(--bdr);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+}
+.ph-init{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--acc);opacity:.4}
+.ph-hint{font-family:var(--mono);font-size:.53rem;color:var(--c3);text-transform:uppercase;letter-spacing:.1em;text-align:center;max-width:88px}
+
+/* ══════════════════════════════════════════════════════
+   ABOUT
+══════════════════════════════════════════════════════ */
+#about{
+  background:
+    linear-gradient(135deg, var(--bg2) 0%, var(--bg) 60%),
+    radial-gradient(ellipse 70% 60% at 100% 100%, rgba(175,172,161,.04) 0%, transparent 60%);
+}
+
+.ab-grid{display:grid;grid-template-columns:3fr 2fr;gap:72px}
+
+.ab-text p{font-size:.93rem;color:var(--c2);line-height:1.92;margin-bottom:18px}
+.ab-text p strong{color:var(--c1);font-weight:400}
+
+.ab-quote{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:1.3rem;
+  color:var(--acc);
+  line-height:1.58;
+  padding:20px 0;
+  border-top:1px solid var(--bdr);
+  border-bottom:1px solid var(--bdr);
+  margin:24px 0;
+}
+
+.ab-research{
+  background:var(--bg3);
+  border:1px solid var(--bdr);
+  padding:20px 22px;
+  margin-top:24px;
+}
+.ab-research-label{
+  font-family:var(--mono);font-size:.58rem;
+  color:var(--c3);letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.ab-research p{font-size:.84rem;color:var(--c2);line-height:1.75;margin:0}
+
+.ab-meta{display:flex;flex-direction:column}
+.ab-row{
+  display:flex;flex-direction:column;gap:3px;
+  padding:16px 0;border-bottom:1px solid var(--bdr);
+}
+.ab-row:first-child{border-top:1px solid var(--bdr);padding-top:0}
+.ab-k{font-family:var(--mono);font-size:.57rem;color:var(--c3);letter-spacing:.14em;text-transform:uppercase}
+.ab-v{font-size:.84rem;color:var(--c1);font-weight:300}
+.ab-v.ok{color:#9DC08B}
+
+/* ══════════════════════════════════════════════════════
+   PROJECTS
+══════════════════════════════════════════════════════ */
+#projects{}
+
+.pr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+
+.pr-card{
+  position:relative;
+  background:var(--bg2);
+  border:1px solid var(--bdr);
+  padding:32px 28px;
+  cursor:pointer;
+  overflow:hidden;
+  transition:border-color .35s var(--ease),transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+/* warm gradient shimmer on card */
+.pr-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 80% 60% at 100% 0%,rgba(175,172,161,.06) 0%,transparent 60%);
+  opacity:0;
+  transition:opacity .4s;
+}
+.pr-card:hover::before{opacity:1}
+.pr-card:hover{
+  border-color:var(--bdr2);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,.35),0 0 40px rgba(175,172,161,.04);
+}
+/* top accent line */
+.pr-card::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc),transparent);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .45s var(--ease);
+}
+.pr-card:hover::after{transform:scaleX(1)}
+
+.pr-num{
+  font-family:var(--serif);font-style:italic;
+  font-size:.95rem;color:var(--c3);font-weight:300;
+  margin-bottom:18px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.pr-arrow{
+  font-size:.85rem;color:var(--acc);
+  opacity:0;transform:translateX(-6px);
+  transition:opacity .3s,transform .3s;
+}
+.pr-card:hover .pr-arrow{opacity:1;transform:translateX(0)}
+
+.pr-title{
+  font-family:var(--serif);font-size:1.25rem;
+  font-weight:400;color:var(--c1);
+  margin-bottom:12px;line-height:1.25;
+}
+.pr-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ptag{
+  font-family:var(--mono);font-size:.55rem;
+  color:var(--c3);letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(175,172,161,.06);
+  padding:3px 9px;border:1px solid var(--bdr);
+}
+.pr-blurb{font-size:.82rem;color:var(--c2);line-height:1.68}
+
+/* ══════════════════════════════════════════════════════
+   PROJECT FULL-PAGE PANEL
+══════════════════════════════════════════════════════ */
+.proj-panel{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  pointer-events:none;
+  visibility:hidden;
+}
+.proj-panel.open{pointer-events:all;visibility:visible}
+
+/* dim overlay */
+.pp-dim{
+  position:absolute;inset:0;
+  background:rgba(10,10,9,.72);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  opacity:0;
+  transition:opacity .45s;
+  cursor:pointer;
+}
+.proj-panel.open .pp-dim{opacity:1}
+
+/* sliding panel */
+.pp-body{
+  position:relative;
+  margin-left:auto;
+  width:min(620px,100%);
+  height:100%;
+  background:
+    linear-gradient(160deg, var(--bg2) 0%, var(--bg) 70%),
+    radial-gradient(ellipse 80% 60% at 100% 0%,rgba(175,172,161,.06) 0%,transparent 55%);
+  border-left:1px solid var(--bdr2);
+  overflow-y:auto;
+  overflow-x:hidden;
+  transform:translateX(100%);
+  transition:transform .52s var(--ease);
+  display:flex;
+  flex-direction:column;
+}
+.proj-panel.open .pp-body{transform:translateX(0)}
+
+/* scrollbar style */
+.pp-body::-webkit-scrollbar{width:3px}
+.pp-body::-webkit-scrollbar-track{background:transparent}
+.pp-body::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:4px}
+
+.pp-top{
+  padding:36px 44px 28px;
+  border-bottom:1px solid var(--bdr);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+  flex-shrink:0;
+}
+.pp-close{
+  background:none;border:1px solid var(--bdr);
+  color:var(--c2);width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;cursor:pointer;flex-shrink:0;
+  transition:border-color .2s,color .2s;
+  margin-top:4px;
+}
+.pp-close:hover{border-color:var(--acc);color:var(--c1)}
+
+.pp-meta-label{font-family:var(--mono);font-size:.58rem;color:var(--c3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px}
+.pp-title{font-family:var(--serif);font-size:1.9rem;font-weight:300;color:var(--c1);line-height:1.15}
+
+.pp-content{padding:40px 44px;display:flex;flex-direction:column;gap:36px;flex:1}
+
+.pp-section-label{
+  font-family:var(--mono);font-size:.58rem;
+  color:var(--c3);letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.pp-section-label::after{content:'';flex:1;height:1px;background:var(--bdr)}
+
+.pp-overview{font-size:.9rem;color:var(--c2);line-height:1.88}
+
+.pp-tools{display:flex;flex-wrap:wrap;gap:7px}
+
+.pp-features{list-style:none;display:flex;flex-direction:column;gap:10px}
+.pp-features li{
+  display:flex;gap:12px;
+  font-size:.86rem;color:var(--c2);line-height:1.7;
+}
+.pp-features li::before{content:'→';color:var(--acc);flex-shrink:0;font-size:.75rem;margin-top:3px}
+
+.pp-insight-box{
+  background:var(--bg3);
+  border:1px solid var(--bdr);
+  padding:20px 22px;
+}
+.pp-insight-box p{
+  font-family:var(--serif);font-style:italic;
+  font-size:1.05rem;color:var(--acc);line-height:1.6;font-weight:300;
+}
+
+.pp-footer{
+  padding:32px 44px;
+  border-top:1px solid var(--bdr);
+  flex-shrink:0;
+}
+.pp-source-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 28px;
+  border:1px solid var(--acc);
+  color:var(--c1);
+  font-family:var(--sans);font-size:.76rem;font-weight:400;
+  letter-spacing:.05em;text-decoration:none;
+  background:transparent;
+  transition:background .3s var(--ease),color .3s;
+}
+.pp-source-btn:hover{background:var(--acc);color:var(--bg)}
+
+/* ══════════════════════════════════════════════════════
+   SKILLS
+══════════════════════════════════════════════════════ */
+#skills{
+  background:
+    linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+}
+
+.sk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.sk-group{
+  background:var(--bg);
+  border:1px solid var(--bdr);
+  padding:28px 24px;
+  transition:border-color .3s,background .3s;
+}
+.sk-group:hover{border-color:var(--bdr2);background:var(--bg3)}
+.sk-group-label{
+  font-family:var(--mono);font-size:.58rem;
+  color:var(--c3);letter-spacing:.16em;text-transform:uppercase;
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;
+}
+.sk-group-label::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.sk-list{display:flex;flex-direction:column}
+.sk-item{
+  display:flex;align-items:center;gap:12px;
+  font-size:.83rem;color:var(--c2);font-weight:300;
+  padding:9px 0;border-bottom:1px solid var(--bdr);
+  transition:color .2s,padding-left .2s var(--ease);
+}
+.sk-item:last-child{border-bottom:none}
+.sk-item::before{
+  content:'';width:3px;height:3px;border-radius:50%;
+  background:var(--acc);opacity:.4;flex-shrink:0;
+  transition:opacity .2s;
+}
+.sk-group:hover .sk-item{color:var(--c1);padding-left:6px}
+.sk-group:hover .sk-item::before{opacity:.9}
+
+/* ══════════════════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════════════════ */
+#contact{
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 0%, rgba(175,172,161,.04) 0%,transparent 55%),
+    var(--bg2);
+}
+
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px}
+.ct-left p{font-size:.92rem;color:var(--c2);line-height:1.9;margin-bottom:16px;font-weight:300}
+
+.ct-links{display:flex;flex-direction:column}
+.ct-link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0;border-bottom:1px solid var(--bdr);
+  text-decoration:none;
+  transition:padding-left .3s var(--ease);
+}
+.ct-link:first-child{border-top:1px solid var(--bdr)}
+.ct-link:hover{padding-left:8px}
+.ct-ln{
+  font-family:var(--serif);font-size:1.5rem;
+  font-weight:300;color:var(--c1);transition:color .2s;
+}
+.ct-link:hover .ct-ln{color:var(--acc2)}
+.ct-sub{font-family:var(--mono);font-size:.6rem;color:var(--c3);letter-spacing:.1em;text-transform:uppercase}
+
+/* ══════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════ */
+footer{
+  padding:28px 68px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--bdr);
+  position:relative;z-index:1;
+}
+.ft-n{font-family:var(--serif);font-size:.85rem;color:var(--c3);font-weight:300}
+.ft-t{font-family:var(--mono);font-size:.57rem;color:var(--c3);letter-spacing:.08em}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+@media(max-width:1040px){
+  section{padding:80px 44px}
+  .hero-inner{grid-template-columns:1fr}
+  .h-photo{display:none}
+  .ab-grid{grid-template-columns:1fr;gap:44px}
+  .pr-grid{grid-template-columns:1fr}
+  .sk-grid{grid-template-columns:1fr 1fr}
+  .ct-grid{grid-template-columns:1fr;gap:44px}
+  footer{padding:24px 44px}
+}
+
+@media(max-width:820px){
+  :root{--sw:0px}
+  .sb{display:none}
+  .mob{display:flex}
+  .main{margin-left:0;padding-top:53px}
+  section{padding:68px 22px}
+  .pr-grid{grid-template-columns:1fr}
+  .sk-grid{grid-template-columns:1fr}
+  footer{padding:20px 22px;flex-direction:column;gap:8px;text-align:center}
+  .pp-body{width:100%}
+  .pp-top{padding:24px 24px 20px}
+  .pp-content{padding:28px 24px}
+  .pp-footer{padding:24px 24px}
+  .h-stats{gap:28px}
+}
+
+@media(max-width:480px){
+  .h1{font-size:2.5rem}
+  .pp-title{font-size:1.5rem}
+}
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+<div class="ambient"></div>
 
-    <div class="header">
-        <h1>Sylvia Onorah</h1>
-        <div class="title">Data Analyst with a Business & Economic Perspective</div>
-        <div class="contact">
-            Abuja, Nigeria | your.email@gmail.com | LinkedIn | GitHub
-        </div>
-    </div>
+<!-- ■ SIDEBAR -->
+<aside class="sb">
+  <div>
+    <div class="sb-logo">Onorah Sylvia<br>Chiemezue</div>
+    <div class="sb-role">Data Analyst · Business Perspective</div>
+    <div class="sb-divider"></div>
+  </div>
+  <nav><ul class="sb-nav">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul></nav>
+  <div class="sb-foot">
+    <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="mailto:onorah@example.com">Email</a>
+  </div>
+</aside>
 
-    <div class="summary">
-        <p>
-            I don’t just analyze data — I use it to answer real business questions and support smarter decisions.
-            Data Analyst with a strong foundation in economics and hands-on experience in Excel, SQL, and Power BI.
-            Skilled in transforming raw data into actionable insights, optimizing workflows, and supporting decision-making
-            across business operations.
-        </p>
-    </div>
-
-    <h2>Skills</h2>
-    <ul>
-        <li>Data Analysis: Excel, SQL, Power BI</li>
-        <li>Data Visualization & Dashboards</li>
-        <li>Data Cleaning & Transformation</li>
-        <li>Business Analysis & Insight Generation</li>
-        <li>CRM Management & Administrative Support</li>
-        <li>Research & Data Entry</li>
-    </ul>
-
-    <h2>Projects</h2>
-    <div class="job">
-        <div class="job-title">HR Data Analysis Project</div>
-        <ul>
-            <li>Analyzed employee data to identify trends in attrition and performance</li>
-            <li>Built dashboards in Power BI to support HR decision-making</li>
-            <li>Provided insights that highlight key workforce patterns</li>
-        </ul>
-    </div>
-
-    <div class="job">
-        <div class="job-title">E-commerce Product Analysis</div>
-        <ul>
-            <li>Evaluated product performance and customer trends using Excel and SQL</li>
-            <li>Identified high-performing products and improvement opportunities</li>
-            <li>Presented findings in a clear, business-focused format</li>
-        </ul>
-    </div>
-
-    <h2>Experience</h2>
-
-    <div class="job">
-        <div class="job-title">Secretarial Manager</div>
-        <div class="date">Evertina's Integrated Concepts</div>
-        <ul>
-            <li>Managed business data, improving record accuracy and accessibility</li>
-            <li>Tracked financial records for better operational transparency</li>
-            <li>Streamlined administrative processes, improving efficiency</li>
-        </ul>
-    </div>
-
-    <div class="job">
-        <div class="job-title">Virtual Assistant (Freelance)</div>
-        <ul>
-            <li>Handled email management, scheduling, and CRM updates</li>
-            <li>Conducted research and created structured reports</li>
-            <li>Delivered 6+ projects including presentation design, surveys, and data tasks</li>
-        </ul>
-    </div>
-
-    <h2>Education</h2>
-    <p>
-        BSc Economics — Second Class Upper <br>
-        Godfrey Okoye University
-    </p>
-
+<!-- ■ MOBILE NAV -->
+<header class="mob" id="mobBar">
+  <span class="mob-n">Onorah S. Chiemezue</span>
+  <button class="mob-btn" id="mobBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="mob-panel" id="mobPanel">
+  <a href="#hero">Home</a>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+  <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+  <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
 </div>
 
+<main class="main">
+
+  <!-- ══ HERO ══ -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div>
+
+        <div class="avail" data-reveal>
+          <span class="avail-dot"></span>
+          Available for opportunities
+        </div>
+
+        <h1 class="h1" data-reveal data-delay="1">
+          Onorah Sylvia
+          <span class="it">Chiemezue</span>
+        </h1>
+
+        <p class="h-sub" data-reveal data-delay="2">Data Analyst · Business &amp; Economic Perspective</p>
+
+        <p class="h-stmt" data-reveal data-delay="3">
+          I help organisations find <strong>clarity in their data</strong> — combining structured analysis, economic thinking, and a focus on the decisions that actually matter.
+        </p>
+
+        <div class="h-btns" data-reveal data-delay="4">
+          <a href="#projects" class="btn">View Projects</a>
+          <a href="#about" class="btn-ghost">About me <span class="arr">→</span></a>
+        </div>
+
+        <div class="h-stats" data-reveal data-delay="4">
+          <div class="hs">
+            <span class="hs-n"><span class="cnt" data-t="2">0</span><sup>+</sup></span>
+            <span class="hs-l">Years Experience</span>
+          </div>
+          <div class="hs">
+            <span class="hs-n"><span class="cnt" data-t="4">0</span><sup>+</sup></span>
+            <span class="hs-l">Projects Completed</span>
+          </div>
+          <div class="hs">
+            <span class="hs-n"><span class="cnt" data-t="3">0</span><sup>+</sup></span>
+            <span class="hs-l">Core Tools</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photo — swap placeholder for <img src="your-photo.jpg" alt="Onorah Sylvia Chiemezue"> -->
+      <div class="h-photo" data-reveal data-delay="2">
+        <div class="h-frame">
+          <div class="ph-placeholder">
+            <span class="ph-init">OSC</span>
+            <span class="ph-hint">Add your photo here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about">
+    <p class="ey" data-reveal>About</p>
+    <h2 class="sh" data-reveal data-delay="1">Behind the <em>analysis</em>.</h2>
+    <div class="ab-grid">
+      <div>
+        <p class="ab-text" data-reveal data-delay="1">
+          <p>I work with data, but my focus is always the <strong>decision behind it</strong>. With a foundation in economics and hands-on experience in data analysis, I approach every problem by asking the right questions first — then using data to find clear, practical answers that people can act on.</p>
+        </p>
+        <div class="ab-quote" data-reveal data-delay="2">
+          "Numbers don't speak for themselves. My job is to make them say the right thing — clearly, and in language that drives action."
+        </div>
+        <p class="ab-text" data-reveal data-delay="3">
+          <p>I've built dashboards, analysed business performance, and worked with real operational data. My economics background gives me a lens for <strong>forecasting, risk thinking, and market patterns</strong> — not just what the data says, but what it means for the business. Every deliverable I produce is built around one question: what decision does this need to support?</p>
+        </p>
+        <div class="ab-research" data-reveal data-delay="4">
+          <div class="ab-research-label">Research &amp; Analysis Approach</div>
+          <p>I apply structured research thinking to every project — framing hypotheses before opening a dataset, stress-testing assumptions, and documenting reasoning. It's what separates analysis that informs from analysis that just reports.</p>
+        </div>
+      </div>
+      <div class="ab-meta" data-reveal data-delay="2">
+        <div class="ab-row"><span class="ab-k">Background</span><span class="ab-v">Economics &amp; Research</span></div>
+        <div class="ab-row"><span class="ab-k">Focus</span><span class="ab-v">Business Intelligence</span></div>
+        <div class="ab-row"><span class="ab-k">Core Stack</span><span class="ab-v">SQL · Excel · Power BI</span></div>
+        <div class="ab-row"><span class="ab-k">Location</span><span class="ab-v">Nigeria</span></div>
+        <div class="ab-row"><span class="ab-k">Status</span><span class="ab-v ok">Open to opportunities</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROJECTS ══ -->
+  <section id="projects">
+    <p class="ey" data-reveal>Projects</p>
+    <h2 class="sh" data-reveal data-delay="1">Selected <em>work</em>.</h2>
+    <div class="pr-grid">
+
+      <div class="pr-card" data-reveal data-delay="1" onclick="openProj('grocery')">
+        <div class="pr-num"><span>01</span><span class="pr-arrow">↗</span></div>
+        <div class="pr-title">Grocery Store Sales Dashboard</div>
+        <div class="pr-tags"><span class="ptag">SQL</span><span class="ptag">Excel</span><span class="ptag">Power BI</span></div>
+        <p class="pr-blurb">Revenue trend and category performance dashboard — turning raw sales data into stocking and promotion decisions.</p>
+      </div>
+
+      <div class="pr-card" data-reveal data-delay="2" onclick="openProj('hr')">
+        <div class="pr-num"><span>02</span><span class="pr-arrow">↗</span></div>
+        <div class="pr-title">HR Analytics Dashboard</div>
+        <div class="pr-tags"><span class="ptag">Power BI</span><span class="ptag">Excel</span><span class="ptag">SQL</span></div>
+        <p class="pr-blurb">Workforce analytics tracking attrition, headcount and performance — moving HR from reactive to proactive decisions.</p>
+      </div>
+
+      <div class="pr-card" data-reveal data-delay="3" onclick="openProj('ecom')">
+        <div class="pr-num"><span>03</span><span class="pr-arrow">↗</span></div>
+        <div class="pr-title">E-commerce Product Analysis</div>
+        <div class="pr-tags"><span class="ptag">SQL</span><span class="ptag">Excel</span><span class="ptag">Power BI</span></div>
+        <p class="pr-blurb">Product-level profitability study revealing margin leaks, high-return SKUs, and cross-sell opportunities.</p>
+      </div>
+
+      <div class="pr-card" data-reveal data-delay="4" onclick="openProj('house')">
+        <div class="pr-num"><span>04</span><span class="pr-arrow">↗</span></div>
+        <div class="pr-title">House Price Prediction</div>
+        <div class="pr-tags"><span class="ptag">Python</span><span class="ptag">Machine Learning</span><span class="ptag">Regression</span></div>
+        <p class="pr-blurb">ML regression model predicting property values — bridging data science and economic reasoning.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ SKILLS ══ -->
+  <section id="skills">
+    <p class="ey" data-reveal>Skills</p>
+    <h2 class="sh" data-reveal data-delay="1">The <em>toolkit</em>.</h2>
+    <div class="sk-grid">
+      <div class="sk-group" data-reveal data-delay="1">
+        <div class="sk-group-label">Data Analysis</div>
+        <div class="sk-list">
+          <div class="sk-item">SQL</div>
+          <div class="sk-item">Microsoft Excel</div>
+          <div class="sk-item">Power BI</div>
+          <div class="sk-item">Data Cleaning</div>
+        </div>
+      </div>
+      <div class="sk-group" data-reveal data-delay="2">
+        <div class="sk-group-label">Business &amp; Research</div>
+        <div class="sk-list">
+          <div class="sk-item">Market Analysis</div>
+          <div class="sk-item">Economic Modeling</div>
+          <div class="sk-item">Research Methodology</div>
+          <div class="sk-item">Decision Support</div>
+        </div>
+      </div>
+      <div class="sk-group" data-reveal data-delay="3">
+        <div class="sk-group-label">Visualization</div>
+        <div class="sk-list">
+          <div class="sk-item">Dashboarding</div>
+          <div class="sk-item">Data Storytelling</div>
+          <div class="sk-item">KPI Design</div>
+          <div class="sk-item">Reporting</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
+    <p class="ey" data-reveal>Contact</p>
+    <h2 class="sh" data-reveal data-delay="1">Let's work <em>together</em>.</h2>
+    <div class="ct-grid">
+      <div data-reveal data-delay="1">
+        <p>I'm open to roles where analytical thinking and business understanding matter as much as technical skill. If you're working on something that needs both — let's talk.</p>
+        <p>The best outcomes come from someone who understands both the data and the decision it needs to support.</p>
+      </div>
+      <div class="ct-links" data-reveal data-delay="2">
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="ct-link">
+          <span class="ct-ln">GitHub</span>
+          <span class="ct-sub">Projects ↗</span>
+        </a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="ct-link">
+          <span class="ct-ln">LinkedIn</span>
+          <span class="ct-sub">Profile ↗</span>
+        </a>
+        <a href="mailto:onorah@example.com" class="ct-link">
+          <span class="ct-ln">Email</span>
+          <span class="ct-sub">onorah@example.com ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="ft-n">Onorah Sylvia Chiemezue</span>
+    <span class="ft-t">© 2025 · Built with a focus on data and clarity</span>
+  </footer>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT FULL-PAGE PANEL
+══════════════════════════════════════════════════ -->
+<div class="proj-panel" id="projPanel">
+  <div class="pp-dim" onclick="closeProj()"></div>
+  <div class="pp-body">
+    <div class="pp-top">
+      <div>
+        <div class="pp-meta-label" id="ppNum">Project</div>
+        <div class="pp-title" id="ppTitle"></div>
+      </div>
+      <button class="pp-close" onclick="closeProj()">✕</button>
+    </div>
+
+    <div class="pp-content">
+      <!-- Overview -->
+      <div>
+        <div class="pp-section-label">Overview</div>
+        <p class="pp-overview" id="ppOverview"></p>
+      </div>
+
+      <!-- Tools -->
+      <div>
+        <div class="pp-section-label">Tools &amp; Technologies</div>
+        <div class="pp-tools" id="ppTools"></div>
+      </div>
+
+      <!-- Key Features -->
+      <div>
+        <div class="pp-section-label">Key Features &amp; Outputs</div>
+        <ul class="pp-features" id="ppFeatures"></ul>
+      </div>
+
+      <!-- Business Insight -->
+      <div class="pp-insight-box">
+        <p id="ppInsight"></p>
+      </div>
+    </div>
+
+    <div class="pp-footer">
+      <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" class="pp-source-btn" id="ppSource">
+        View on LinkedIn ↗
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ═══════════════════════════════════════════════
+   PROJECT DATA
+═══════════════════════════════════════════════ */
+const PROJECTS = {
+  grocery: {
+    num: 'Project 01',
+    title: 'Grocery Store Sales Dashboard',
+    tools: ['SQL','Excel','Power BI','DAX','Data Cleaning'],
+    overview: 'A multi-page business intelligence dashboard built for a grocery retail chain. The goal was to move store managers away from manually reviewing spreadsheets and toward a live, filterable view of what was actually driving and hurting revenue — by category, by period, by location.',
+    features: [
+      'Category-level revenue breakdown with period-over-period comparison',
+      'Seasonal demand pattern visualisation to guide inventory planning',
+      'Top and bottom-performing product tracking with drill-down capability',
+      'Automated data refresh pipeline from SQL source to Power BI visuals',
+      'Executive summary page for non-technical stakeholder consumption'
+    ],
+    insight: 'Identified a 23% revenue gap concentrated in 3 underperforming categories — enabling a targeted promotion strategy that improved their sales velocity within one quarter.',
+    linkedin: 'https://linkedin.com/in/yourusername'
+  },
+  hr: {
+    num: 'Project 02',
+    title: 'HR Analytics Dashboard',
+    tools: ['Power BI','Excel','SQL','DAX'],
+    overview: 'An interactive workforce analytics dashboard designed to help HR teams understand not just where attrition is happening, but why — and who is at risk next. The project required understanding the human context behind the numbers as much as the technical build.',
+    features: [
+      'Attrition rate tracking segmented by department, tenure, and salary band',
+      'Headcount trend analysis with 90-day early warning signals',
+      'Performance distribution across teams to identify engagement gaps',
+      'Multi-source data integration from Excel HR records via SQL normalisation',
+      'Dynamic filtering by role, region, and time period'
+    ],
+    insight: 'The dashboard helped HR identify high-risk attrition segments 90 days in advance — turning a reactive "exit interview" process into a proactive retention strategy.',
+    linkedin: 'https://linkedin.com/in/yourusername'
+  },
+  ecom: {
+    num: 'Project 03',
+    title: 'E-commerce Product Analysis',
+    tools: ['SQL','Excel','Power BI','Profitability Modelling'],
+    overview: 'A full-funnel product analysis for an e-commerce business — from raw transaction data in SQL, through a profitability model in Excel, to a clean executive report in Power BI. The economics framing was deliberate: price elasticity and margin contribution shaped which recommendations were actually actionable.',
+    features: [
+      'SKU-level margin analysis identifying the products actually driving profit',
+      'Return rate clustering to surface high-cost product patterns',
+      'Cross-sell opportunity mapping using purchase co-occurrence data',
+      'Customer segment profitability breakdown by order value and frequency',
+      'Prioritised recommendation set with projected revenue impact'
+    ],
+    insight: 'Top 10% of SKUs drove 68% of total margin. Cross-sell recommendations were modelled to increase average order value by approximately 14% — a clear, defensible business case.',
+    linkedin: 'https://linkedin.com/in/yourusername'
+  },
+  house: {
+    num: 'Project 04',
+    title: 'House Price Prediction',
+    tools: ['Python','Scikit-learn','Gradient Boosting','Feature Engineering','Regression Analysis'],
+    overview: 'A supervised machine learning project predicting residential property prices using 20,000+ listings. This sits at the intersection of data science and economic modelling — property pricing is fundamentally an economics problem, and framing it that way led to better feature selection and a more interpretable, decision-useful model.',
+    features: [
+      'Feature engineering across structural, locational, and market variables',
+      'Comparison of linear, ridge, and gradient-boosted regression models',
+      'SHAP-based feature importance analysis for explainability',
+      'Residual analysis to identify systematic undervaluation patterns',
+      'Clean model evaluation notebook with reproducible pipeline'
+    ],
+    insight: 'Final gradient-boosted model achieved R² of 0.89 on the test set. But accuracy was secondary — the goal was a model stakeholders could interrogate and trust for real valuation decisions.',
+    linkedin: 'https://linkedin.com/in/yourusername'
+  }
+};
+
+/* ═══════════════════════════════════════════════
+   PANEL OPEN / CLOSE
+═══════════════════════════════════════════════ */
+function openProj(key) {
+  const p = PROJECTS[key];
+  document.getElementById('ppNum').textContent = p.num;
+  document.getElementById('ppTitle').textContent = p.title;
+  document.getElementById('ppOverview').textContent = p.overview;
+  document.getElementById('ppInsight').textContent = p.insight;
+  document.getElementById('ppSource').href = p.linkedin;
+
+  // tools
+  document.getElementById('ppTools').innerHTML =
+    p.tools.map(t => `<span class="ptag">${t}</span>`).join('');
+
+  // features
+  document.getElementById('ppFeatures').innerHTML =
+    p.features.map(f => `<li>${f}</li>`).join('');
+
+  const panel = document.getElementById('projPanel');
+  panel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // scroll panel to top
+  panel.querySelector('.pp-body').scrollTop = 0;
+}
+
+function closeProj() {
+  document.getElementById('projPanel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProj(); });
+
+/* ═══════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════ */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+
+/* ═══════════════════════════════════════════════
+   COUNTERS
+═══════════════════════════════════════════════ */
+const co = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, end = parseInt(el.dataset.t);
+    let v = 0; const step = end / 24;
+    const t = setInterval(() => {
+      v += step;
+      if (v >= end) { el.textContent = end; clearInterval(t); }
+      else el.textContent = Math.floor(v);
+    }, 50);
+    co.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.cnt').forEach(c => co.observe(c));
+
+/* ═══════════════════════════════════════════════
+   ACTIVE NAV
+═══════════════════════════════════════════════ */
+const secs = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.sb-nav a');
+const ao = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navAs.forEach(a => a.classList.remove('act'));
+      const a = document.querySelector(`.sb-nav a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('act');
+    }
+  });
+}, { threshold: 0.35 });
+secs.forEach(s => ao.observe(s));
+
+/* ═══════════════════════════════════════════════
+   MOBILE MENU
+═══════════════════════════════════════════════ */
+const mb = document.getElementById('mobBtn');
+const mp = document.getElementById('mobPanel');
+mb.addEventListener('click', () => { mb.classList.toggle('o'); mp.classList.toggle('o'); });
+mp.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mb.classList.remove('o'); mp.classList.remove('o');
+}));
+</script>
 </body>
 </html>
